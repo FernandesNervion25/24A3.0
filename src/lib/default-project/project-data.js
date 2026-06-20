@@ -42,8 +42,8 @@ const projectData = translateFunction => {
                         name: 'Arduino',
                         md5ext: 'f9649ee26bc4c038ea1f29761110f37b.svg',
                         dataFormat: 'svg',
-                        rotationCenterX: 240,
-                        rotationCenterY: 180
+                        rotationCenterX: 214,
+                        rotationCenterY: 153
                     }
                 ],
                 sounds: [],
