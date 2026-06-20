@@ -3,7 +3,7 @@ import projectData from './project-data';
 /* eslint-disable import/no-unresolved */
 import popWav from '!arraybuffer-loader!./83a9787d4cb6f3b7632b4ddfebf74367.wav?';
 import meowWav from '!arraybuffer-loader!./83c36d806dc92327b9e7049a565c6bff.wav?';
-import backdrop from '!raw-loader!./cd21514d0531fdffb22204e0ec5ed84a.svg?';
+import backdrop from '!raw-loader!./f9649ee26bc4c038ea1f29761110f37b.svg?';
 import costume1 from '!raw-loader!./bcf454acf82e4504149f7ffe07081dbc.svg?';
 import costume2 from '!raw-loader!./0fb9be3e8397c983338cb71dc84d0b25.svg?';
 /* eslint-enable import/no-unresolved */
@@ -34,7 +34,7 @@ const defaultProject = translator => {
         dataFormat: 'WAV',
         data: new Uint8Array(meowWav)
     }, {
-        id: 'cd21514d0531fdffb22204e0ec5ed84a',
+        id: 'f9649ee26bc4c038ea1f29761110f37b',
         assetType: 'ImageVector',
         dataFormat: 'SVG',
         data: encoder.encode(backdrop)
