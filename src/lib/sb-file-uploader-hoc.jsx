@@ -36,7 +36,7 @@ const messages = defineMessages({
  * @returns {React.Component} WrappedComponent with project file loading functionality added
  *
  * <SBFileUploaderHOC>
- *     <WrappedComponent />
+ * <WrappedComponent />
  * </SBFileUploaderHOC>
  */
 const SBFileUploaderHOC = function (WrappedComponent) {
@@ -76,7 +76,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             this.fileReader.onload = this.onload;
             // create <input> element and add it to DOM
             this.inputElement = document.createElement('input');
-            this.inputElement.accept = '.sb,.sb2,.sb3';
+            this.inputElement.accept = '.34A';
             this.inputElement.style = 'display: none;';
             this.inputElement.type = 'file';
             this.inputElement.onchange = this.handleChange; // connects to step 3
@@ -95,8 +95,17 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 userOwnsProject
             } = this.props;
             const thisFileInput = e.target;
-            if (thisFileInput.files) { // Don't attempt to load if no file was selected
+            if (thisFileInput.files && thisFileInput.files.length > 0) { // Don't attempt to load if no file was selected
                 this.fileToUpload = thisFileInput.files[0];
+
+                // VALIDACIÓN NATIVA Y TRADUCIBLE DE LA EXTENSIÓN .34A
+                if (!this.fileToUpload.name.endsWith('.34A')) {
+                    // Llama a la alerta nativa usando el diccionario de idiomas de Scratch
+                    alert(intl.formatMessage(messages.loadError)); 
+                    this.removeFileObjects();
+                    this.props.closeFileMenu();
+                    return; // Aborta por completo la ejecución
+                }
 
                 // If user owns the project, or user has changed the project,
                 // we must confirm with the user that they really intend to
@@ -137,8 +146,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         getProjectTitleFromFilename (fileInputFilename) {
             if (!fileInputFilename) return '';
             // only parse title with valid scratch project extensions
-            // (.sb, .sb2, and .sb3)
-            const matches = fileInputFilename.match(/^(.*)\.sb[23]?$/);
+            // Modificado estrictamente a .34A
+            const matches = fileInputFilename.match(/^(.*)\.34A$/);
             if (!matches) return '';
             return matches[1].substring(0, 100); // truncate project title to max 100 chars
         }
@@ -174,7 +183,9 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         removeFileObjects () {
             if (this.inputElement) {
                 this.inputElement.value = null;
-                document.body.removeChild(this.inputElement);
+                if (this.inputElement.parentNode) {
+                    this.inputElement.parentNode.removeChild(this.inputElement);
+                }
             }
             this.inputElement = null;
             this.fileReader = null;
